@@ -46,16 +46,18 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
+
+      appBar: AppBar(title: const Text("Sovteh")),
+
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+
             const Text(
               'Slider:',
             ),
+
             Slider(
               value: currentSliderValue,
               max: 100,
@@ -70,13 +72,13 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
+
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           openRequestPage(currentSliderValue);
         },
-        tooltip: 'Increment',
         child: const Icon(Icons.search),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 
