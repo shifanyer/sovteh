@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sovteh/request_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,12 +31,16 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  double currentSliderValue = 20;
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  void openRequestPage(double currentSliderValue) {
+    Navigator.push(
+        context,
+        CupertinoPageRoute(
+            builder: (context) => RequestPage(
+                  urlCode: currentSliderValue.round(),
+                  urlStr: _getSiteName(currentSliderValue.round()),
+                )));
   }
 
   @override
@@ -48,20 +54,51 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
-              'You have pushed the button this many times:',
+              'Slider:',
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+            Slider(
+              value: currentSliderValue,
+              max: 100,
+              divisions: 5,
+              label: _getSiteName(currentSliderValue.round()),
+              onChanged: (double value) {
+                setState(() {
+                  currentSliderValue = value;
+                });
+              },
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: () {
+          openRequestPage(currentSliderValue);
+        },
         tooltip: 'Increment',
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.search),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+  }
+
+  String _getSiteName(int x) {
+    var urlStr = 'ya.ru';
+    switch (x) {
+      case 0:
+        urlStr = 'google.com';
+        break;
+      case 20:
+        urlStr = 'stackoverflow.com';
+        break;
+      case 40:
+        urlStr = 'new.fml31.ru';
+        break;
+      case 60:
+        urlStr = 'abracadabrabro.com';
+        break;
+      case 80:
+        urlStr = 'vk.ru';
+        break;
+    }
+    return urlStr;
   }
 }
