@@ -51,7 +51,7 @@ class _RequestPageState extends State<RequestPage> {
   Future<SiteData> _loadCode(String urlStr) async {
     var result = 404;
     try {
-      var url = Uri.https(urlStr);
+      var url = Uri.http(urlStr);
       var response = await http.get(url).timeout(const Duration(seconds: 5));
       result = response.statusCode;
     } catch (_) {}

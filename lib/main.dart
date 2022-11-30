@@ -95,7 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
         urlStr = 'new.fml31.ru';
         break;
       case 60:
-        urlStr = 'http://192.168.1.120:5000';
+        urlStr = '192.168.1.120:5000';
         break;
       case 80:
         urlStr = 'vk.ru';
