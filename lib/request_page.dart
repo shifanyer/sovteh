@@ -18,29 +18,30 @@ class _RequestPageState extends State<RequestPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.blue,
-      ),
+      appBar: AppBar(backgroundColor: Colors.blue),
       body: FutureBuilder(
         future: _loadCode(widget.urlStr),
         builder: (context, snapshot) {
           return Center(
             child: (snapshot.data != null)
                 ? SafeArea(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(snapshot.data?.site ?? ""),
-                  Text(
-                    snapshot.data?.code.toString() ?? "500",
-                    style: Theme.of(context).textTheme.headline4,
-                  ),
-                ],
-              ),
-            )
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+
+                        Text(snapshot.data?.site ?? ""),
+
+                        Text(
+                          snapshot.data?.code.toString() ?? "500",
+                          style: Theme.of(context).textTheme.headline4,
+                        ),
+
+                      ],
+                    ),
+                  )
                 : const CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
-            ),
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                  ),
           );
         },
       ),
