@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+
+import 'message_sender.dart';
 
 class RequestPage extends StatefulWidget {
   final int urlCode;
@@ -20,7 +21,7 @@ class _RequestPageState extends State<RequestPage> {
     return Scaffold(
       appBar: AppBar(backgroundColor: Colors.blue),
       body: FutureBuilder(
-        future: _loadCode(widget.urlStr),
+        future: MessageSender.loadCode(widget.urlStr),
         builder: (context, snapshot) {
           return Center(
             child: (snapshot.data != null)
@@ -28,14 +29,11 @@ class _RequestPageState extends State<RequestPage> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-
                         Text(snapshot.data?.site ?? ""),
-
                         Text(
                           snapshot.data?.code.toString() ?? "500",
                           style: Theme.of(context).textTheme.headline4,
                         ),
-
                       ],
                     ),
                   )
@@ -47,21 +45,4 @@ class _RequestPageState extends State<RequestPage> {
       ),
     );
   }
-
-  Future<SiteData> _loadCode(String urlStr) async {
-    var result = 404;
-    try {
-      var url = Uri.http(urlStr);
-      var response = await http.get(url).timeout(const Duration(seconds: 5));
-      result = response.statusCode;
-    } catch (_) {}
-    return SiteData(urlStr, result);
-  }
-}
-
-class SiteData {
-  String site;
-  int code;
-
-  SiteData(this.site, this.code);
 }
