@@ -21,15 +21,20 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(
+        title: 'Flutter Demo Home Page',
+        messageSender: MessageSender(),
+      ),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage(
+      {super.key, required this.title, required this.messageSender});
 
   final String title;
+  final MessageSender messageSender;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -39,11 +44,13 @@ class _MyHomePageState extends State<MyHomePage> {
   double currentSliderValue = 2;
 
   StreamController<double> streamController = StreamController();
+  late TextEditingController _textController;
 
   @override
   void initState() {
+    _textController = TextEditingController();
     streamController.stream.listen((double data) {
-      MessageSender.sendDigitToServer(data);
+      widget.messageSender.sendDigitToServer(data);
     }, onDone: () {
       print("Task Done");
     }, onError: (error) {
@@ -75,12 +82,25 @@ class _MyHomePageState extends State<MyHomePage> {
                 });
               },
             ),
+            Container(
+              height: 10,
+            ),
+            Container(
+              alignment: Alignment.topCenter,
+              width: 200,
+              child: TextField(
+                controller: _textController,
+                onSubmitted: (String value) {
+                  widget.messageSender.updUrl(value);
+                },
+              ),
+            )
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          openRequestPage(currentSliderValue);
+          // openRequestPage(currentSliderValue);
         },
         child: const Icon(Icons.search),
       ),
@@ -90,6 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void dispose() {
     streamController.close(); //Streams must be closed when not needed
+    _textController.dispose();
     super.dispose();
   }
 
@@ -101,10 +122,10 @@ class _MyHomePageState extends State<MyHomePage> {
     Navigator.push(
         context,
         CupertinoPageRoute(
-            builder: (context) =>
-                RequestPage(
+            builder: (context) => RequestPage(
                   urlCode: currentSliderValue.round(),
                   urlStr: _getSiteName(currentSliderValue.round()),
+                  messageSender: widget.messageSender,
                 )));
   }
 

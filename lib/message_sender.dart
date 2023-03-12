@@ -3,10 +3,15 @@ import 'dart:ffi';
 import 'package:http/http.dart' as http;
 import 'package:sovteh/site_data.dart';
 
-String serverUrl = "192.168.0.103:5000";
-
 class MessageSender {
-  static Future<SiteData> loadCode(String urlStr) async {
+
+  String serverUrl = "193.168.0.103:5000";
+
+  void updUrl(String newUrl) {
+    serverUrl = newUrl;
+  }
+
+  Future<SiteData> loadCode(String urlStr) async {
     var result = 404;
     try {
       var url = Uri.http(urlStr);
@@ -17,7 +22,7 @@ class MessageSender {
     return SiteData(urlStr, result);
   }
 
-  static Future sendDigitToServer(double digit) async {
+  Future sendDigitToServer(double digit) async {
     http
         .get(Uri.http(serverUrl, "/numbers/$digit"))
         .timeout(const Duration(milliseconds: 300));

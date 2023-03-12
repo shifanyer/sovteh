@@ -6,8 +6,13 @@ import 'message_sender.dart';
 class RequestPage extends StatefulWidget {
   final int urlCode;
   final String urlStr;
+  final MessageSender messageSender;
 
-  const RequestPage({super.key, required this.urlCode, required this.urlStr});
+  const RequestPage(
+      {super.key,
+      required this.urlCode,
+      required this.urlStr,
+      required this.messageSender});
 
   @override
   State<RequestPage> createState() => _RequestPageState();
@@ -21,7 +26,7 @@ class _RequestPageState extends State<RequestPage> {
     return Scaffold(
       appBar: AppBar(backgroundColor: Colors.blue),
       body: FutureBuilder(
-        future: MessageSender.loadCode(widget.urlStr),
+        future: widget.messageSender.loadCode(widget.urlStr),
         builder: (context, snapshot) {
           return Center(
             child: (snapshot.data != null)
