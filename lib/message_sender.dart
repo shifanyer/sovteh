@@ -4,8 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:sovteh/site_data.dart';
 
 class MessageSender {
-
-  String serverUrl = "193.168.0.103:5000";
+  String serverUrl = "192.168.0.103:5000";
 
   void updUrl(String newUrl) {
     serverUrl = newUrl;
@@ -24,7 +23,7 @@ class MessageSender {
 
   Future sendDigitToServer(double digit) async {
     http
-        .get(Uri.http(serverUrl, "/numbers/$digit"))
+        .get(Uri.http(serverUrl, "/arguments", {"n": digit.toString()}))
         .timeout(const Duration(milliseconds: 300));
   }
 }
