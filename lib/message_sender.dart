@@ -1,7 +1,6 @@
-import 'dart:ffi';
-
 import 'package:http/http.dart' as http;
 import 'package:sovteh/site_data.dart';
+import 'package:sovteh/utils.dart';
 
 class MessageSender {
   String serverUrl = "192.168.0.103:5000";
@@ -21,9 +20,10 @@ class MessageSender {
     return SiteData(urlStr, result);
   }
 
-  Future sendDigitToServer(double digit) async {
+  Future sendDigitToServer(MessageData data) async {
     http
-        .get(Uri.http(serverUrl, "/arguments", {"n": digit.toString()}))
+        .get(Uri.http(serverUrl, "/arguments",
+            {"n": data.value.toString(), "tag": data.tag}))
         .timeout(const Duration(milliseconds: 300));
   }
 }

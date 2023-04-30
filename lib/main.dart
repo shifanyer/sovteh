@@ -1,11 +1,8 @@
-import 'dart:async';
-import 'dart:ffi';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sovteh/message_sender.dart';
 import 'package:sovteh/request_page.dart';
-import 'package:http/http.dart' as http;
+import 'package:sovteh/slider_with_wrap.dart';
 
 void main() {
   runApp(const MyApp());
@@ -43,19 +40,20 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   double currentSliderValue = 2;
 
-  StreamController<double> streamController = StreamController();
+  // StreamController<double> streamController = StreamController();
   late TextEditingController _textController;
 
   @override
   void initState() {
     _textController = TextEditingController();
-    streamController.stream.listen((double data) {
-      widget.messageSender.sendDigitToServer(data);
-    }, onDone: () {
-      print("Task Done");
-    }, onError: (error) {
-      print("Some Error");
-    });
+    _textController.text = "192.168.0.103:5000";
+    // streamController.stream.listen((double data) {
+    //   widget.messageSender.sendDigitToServer(data);
+    // }, onDone: () {
+    //   print("Task Done");
+    // }, onError: (error) {
+    //   print("Some Error");
+    // });
     super.initState();
   }
 
@@ -67,24 +65,32 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'Slider:',
+            SliderWithWrap(
+              messageSender: widget.messageSender,
+              tag: "FIRST",
             ),
-            Slider(
-              value: currentSliderValue,
-              max: 100,
-              divisions: 10000,
-              label: getHundredths(currentSliderValue).toString(),
-              onChanged: (double value) {
-                streamController.add(getHundredths(value));
-                setState(() {
-                  currentSliderValue = value;
-                });
-              },
+            SliderWithWrap(
+              messageSender: widget.messageSender,
+              tag: "SECOND",
             ),
-            Container(
-              height: 10,
-            ),
+            // const Text(
+            //   'Slider:',
+            // ),
+            // Slider(
+            //   value: currentSliderValue,
+            //   max: 100,
+            //   divisions: 10000,
+            //   label: getHundredths(currentSliderValue).toString(),
+            //   onChanged: (double value) {
+            //     streamController.add(getHundredths(value));
+            //     setState(() {
+            //       currentSliderValue = value;
+            //     });
+            //   },
+            // ),
+            // Container(
+            //   height: 10,
+            // ),
             Container(
               alignment: Alignment.topCenter,
               width: 200,
@@ -109,7 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void dispose() {
-    streamController.close(); //Streams must be closed when not needed
+    // streamController.close(); //Streams must be closed when not needed
     _textController.dispose();
     super.dispose();
   }
