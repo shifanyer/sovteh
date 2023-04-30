@@ -3,32 +3,33 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sovteh/utils.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 
 import 'message_sender.dart';
 
-class SliderWithWrap extends StatefulWidget {
+class ToggleWithWrap extends StatefulWidget {
   final MessageSender messageSender;
   final String tag;
-  final double initialValue;
+  final int initialValue;
 
-  const SliderWithWrap(
+  const ToggleWithWrap(
       {super.key,
       required this.messageSender,
       required this.tag,
       required this.initialValue});
 
   @override
-  State<SliderWithWrap> createState() => _SliderWithWrapState();
+  State<ToggleWithWrap> createState() => _ToggleWithWrapState();
 }
 
-class _SliderWithWrapState extends State<SliderWithWrap> {
+class _ToggleWithWrapState extends State<ToggleWithWrap> {
   StreamController<MessageData> streamController = StreamController();
-  late double currentSliderValue;
+  late int currentToggleValue;
 
   @override
   void initState() {
     super.initState();
-    currentSliderValue = widget.initialValue;
+    currentToggleValue = widget.initialValue;
     streamController.stream.listen((MessageData data) {
       widget.messageSender.sendDigitToServer(data);
     }, onDone: () {
@@ -44,20 +45,25 @@ class _SliderWithWrapState extends State<SliderWithWrap> {
       child: Column(
         children: [
           Text(
-            'Slider: ${widget.tag}',
+            'Toggle: ${widget.tag}',
           ),
-          Slider(
-            value: currentSliderValue,
-            max: 100,
-            divisions: 10000,
-            label: getHundredths(currentSliderValue).toString(),
-            onChanged: (double value) {
-              streamController
-                  .add(MessageData(getHundredths(value), widget.tag));
-              setState(() {
-                currentSliderValue = value;
-              });
-            },
+          Container(
+            height: 10,
+          ),
+          ToggleSwitch(
+            minWidth: 90.0,
+            cornerRadius: 20.0,
+            activeBgColors: [
+              [Colors.green[800]!],
+              [Colors.red[800]!]
+            ],
+            activeFgColor: Colors.white,
+            inactiveBgColor: Colors.grey,
+            inactiveFgColor: Colors.white,
+            initialLabelIndex: widget.initialValue,
+            totalSwitches: 2,
+            labels: ['True', 'False'],
+            radiusStyle: true,
           ),
           Container(
             height: 10,

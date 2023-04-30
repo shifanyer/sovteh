@@ -6,22 +6,30 @@ class ControllersList {
 
 abstract class ControllerUnit {
   final initialValue;
+  final String tag;
+  final ControllerType controllerType;
 
-  ControllerUnit(this.initialValue);
+  ControllerUnit(this.initialValue, this.tag, this.controllerType);
 }
 
 class ControllerSlider extends ControllerUnit {
   @override
-  final double initialValue = 0.0;
+  final double initialValue;
+  @override
+  final String tag;
 
-  ControllerSlider(super.initialValue);
+  ControllerSlider(this.initialValue, this.tag)
+      : super(null, '', ControllerType.slider);
 }
 
 class ControllerToggle extends ControllerUnit {
   @override
-  final int initialValue = 0;
+  final int initialValue;
+  @override
+  final String tag;
 
-  ControllerToggle(super.initialValue);
+  ControllerToggle(this.initialValue, this.tag)
+      : super(null, '', ControllerType.toggle);
 }
 
 enum ControllerType {
@@ -29,7 +37,7 @@ enum ControllerType {
   toggle,
 }
 
-class MessageData{
+class MessageData {
   final double value;
   final String tag;
 
