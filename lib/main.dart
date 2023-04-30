@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sovteh/message_sender.dart';
-import 'package:sovteh/slider_with_wrap.dart';
-import 'package:sovteh/utils.dart';
+import 'package:sovteh/client/message_sender.dart';
 
 import 'controllers_page.dart';
 
@@ -67,16 +65,16 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            SliderWithWrap(
-              messageSender: widget.messageSender,
-              tag: "FIRST",
-              initialValue: 90,
-            ),
-            SliderWithWrap(
-              messageSender: widget.messageSender,
-              tag: "SECOND",
-              initialValue: 10,
-            ),
+            // SliderWithWrap(
+            //   messageSender: widget.messageSender,
+            //   tag: "FIRST",
+            //   initialValue: 90,
+            // ),
+            // SliderWithWrap(
+            //   messageSender: widget.messageSender,
+            //   tag: "SECOND",
+            //   initialValue: 10,
+            // ),
             // const Text(
             //   'Slider:',
             // ),
@@ -133,55 +131,27 @@ class _MyHomePageState extends State<MyHomePage> {
         context,
         CupertinoPageRoute(
             builder: (context) => ControllersPage(
-                  controllersList: ControllersList([
-                    ControllerSlider(0.0, "FIRST"),
-                    ControllerSlider(20.0, "SECOND"),
-                    ControllerSlider(40.0, "THIRD"),
-                    ControllerToggle(1, "FOURTH"),
-                    ControllerToggle(0, "FIFTH"),
-                    ControllerSlider(40.0, "SIXTH"),
-                    ControllerSlider(40.0, "THIRD"),
-                    ControllerToggle(1, "FOURTH"),
-                    ControllerToggle(0, "FIFTH"),
-                    ControllerSlider(40.0, "SIXTH"),
-                    ControllerSlider(40.0, "THIRD"),
-                    ControllerToggle(1, "FOURTH"),
-                    ControllerToggle(0, "FIFTH"),
-                    ControllerSlider(40.0, "SIXTH"),
-                    ControllerSlider(40.0, "THIRD"),
-                    ControllerToggle(1, "FOURTH"),
-                    ControllerToggle(0, "FIFTH"),
-                    ControllerSlider(40.0, "SIXTH"),
-                  ]),
+                  // controllersList: ControllersList([
+                  //   ControllerSlider(0.0, "FIRST"),
+                  //   ControllerSlider(20.0, "SECOND"),
+                  //   ControllerSlider(40.0, "THIRD"),
+                  //   ControllerToggle(1, "FOURTH"),
+                  //   ControllerToggle(0, "FIFTH"),
+                  //   ControllerSlider(40.0, "SIXTH"),
+                  //   ControllerSlider(40.0, "THIRD"),
+                  //   ControllerToggle(1, "FOURTH"),
+                  //   ControllerToggle(0, "FIFTH"),
+                  //   ControllerSlider(40.0, "SIXTH"),
+                  //   ControllerSlider(40.0, "THIRD"),
+                  //   ControllerToggle(1, "FOURTH"),
+                  //   ControllerToggle(0, "FIFTH"),
+                  //   ControllerSlider(40.0, "SIXTH"),
+                  //   ControllerSlider(40.0, "THIRD"),
+                  //   ControllerToggle(1, "FOURTH"),
+                  //   ControllerToggle(0, "FIFTH"),
+                  //   ControllerSlider(40.0, "SIXTH"),
+                  // ]),
                   messageSender: messageSender,
-                )
-            // builder: (context) => RequestPage(
-            //       urlCode: currentSliderValue.round(),
-            //       urlStr: _getSiteName(currentSliderValue.round()),
-            //       messageSender: widget.messageSender,
-            //     )
-            ));
+                )));
   }
-
-  // String _getSiteName(int x) {
-  //   var urlStr = 'ya.ru';
-  //   switch (x) {
-  //     case 0:
-  //       urlStr = 'google.com';
-  //       break;
-  //     case 20:
-  //       urlStr = 'stackoverflow.com';
-  //       break;
-  //     case 40:
-  //       urlStr = 'new.fml31.ru';
-  //       break;
-  //     case 60:
-  //       urlStr = '192.168.0.103:5000';
-  //       break;
-  //     case 80:
-  //       urlStr = 'vk.ru';
-  //       break;
-  //   }
-  //   return urlStr;
-  // }
 }

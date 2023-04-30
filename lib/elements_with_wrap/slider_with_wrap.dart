@@ -3,33 +3,32 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sovteh/utils.dart';
-import 'package:toggle_switch/toggle_switch.dart';
 
-import 'message_sender.dart';
+import '../client/message_sender.dart';
 
-class ToggleWithWrap extends StatefulWidget {
+class SliderWithWrap extends StatefulWidget {
   final MessageSender messageSender;
   final String tag;
-  final int initialValue;
+  final double initialValue;
 
-  const ToggleWithWrap(
+  const SliderWithWrap(
       {super.key,
       required this.messageSender,
       required this.tag,
       required this.initialValue});
 
   @override
-  State<ToggleWithWrap> createState() => _ToggleWithWrapState();
+  State<SliderWithWrap> createState() => _SliderWithWrapState();
 }
 
-class _ToggleWithWrapState extends State<ToggleWithWrap> {
+class _SliderWithWrapState extends State<SliderWithWrap> {
   StreamController<MessageData> streamController = StreamController();
-  late int currentToggleValue;
+  late double currentSliderValue;
 
   @override
   void initState() {
     super.initState();
-    currentToggleValue = widget.initialValue;
+    currentSliderValue = widget.initialValue;
     streamController.stream.listen((MessageData data) {
       widget.messageSender.sendDigitToServer(data);
     }, onDone: () {
@@ -45,25 +44,20 @@ class _ToggleWithWrapState extends State<ToggleWithWrap> {
       child: Column(
         children: [
           Text(
-            'Toggle: ${widget.tag}',
+            'Slider: ${widget.tag}',
           ),
-          Container(
-            height: 10,
-          ),
-          ToggleSwitch(
-            minWidth: 90.0,
-            cornerRadius: 20.0,
-            activeBgColors: [
-              [Colors.green[800]!],
-              [Colors.red[800]!]
-            ],
-            activeFgColor: Colors.white,
-            inactiveBgColor: Colors.grey,
-            inactiveFgColor: Colors.white,
-            initialLabelIndex: widget.initialValue,
-            totalSwitches: 2,
-            labels: ['True', 'False'],
-            radiusStyle: true,
+          Slider(
+            value: currentSliderValue,
+            max: 100,
+            divisions: 100,
+            label: getHundredths(currentSliderValue).toString(),
+            onChanged: (double value) {
+              streamController
+                  .add(MessageData(getHundredths(value), widget.tag));
+              setState(() {
+                currentSliderValue = value;
+              });
+            },
           ),
           Container(
             height: 10,

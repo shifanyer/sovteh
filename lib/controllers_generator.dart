@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
-import 'package:sovteh/slider_with_wrap.dart';
-import 'package:sovteh/toggle_with_wrap.dart';
+import 'package:sovteh/elements_with_wrap/slider_with_wrap.dart';
+import 'package:sovteh/elements_with_wrap/toggle_with_wrap.dart';
 import 'package:sovteh/utils.dart';
 
-import 'message_sender.dart';
+import 'elements_with_wrap/button_with_wrap.dart';
+import 'client/message_sender.dart';
+import 'elements_with_wrap/text_with_wrap.dart';
 
 class ControllersGen extends StatelessWidget {
   final List<ControllerUnit> elements;
@@ -23,18 +25,31 @@ class ControllersGen extends StatelessWidget {
           );
         } else {
           ControllerUnit controllerUnit = elements[index - 1];
-          if (controllerUnit.controllerType == ControllerType.toggle) {
-            return ToggleWithWrap(
-              messageSender: messageSender,
-              tag: controllerUnit.tag,
-              initialValue: controllerUnit.initialValue,
-            );
-          } else {
-            return SliderWithWrap(
-              messageSender: messageSender,
-              tag: controllerUnit.tag,
-              initialValue: controllerUnit.initialValue,
-            );
+          switch (controllerUnit.controllerType) {
+            case ControllerType.TOGGLE:
+              return ToggleWithWrap(
+                messageSender: messageSender,
+                tag: controllerUnit.tag,
+                initialValue: controllerUnit.initialValue,
+              );
+            case ControllerType.SLIDER:
+              return SliderWithWrap(
+                messageSender: messageSender,
+                tag: controllerUnit.tag,
+                initialValue: controllerUnit.initialValue,
+              );
+            case ControllerType.TEXT:
+              return TextWithWrap(
+                messageSender: messageSender,
+                tag: controllerUnit.tag,
+                initialValue: controllerUnit.initialValue,
+              );
+            case ControllerType.BUTTON:
+              return ButtonWithWrap(
+                messageSender: messageSender,
+                tag: controllerUnit.tag,
+                initialValue: controllerUnit.initialValue,
+              );
           }
         }
       },

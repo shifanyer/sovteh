@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'message_sender.dart';
+import 'client/message_sender.dart';
 
 class RequestPage extends StatefulWidget {
   final int urlCode;
