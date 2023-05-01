@@ -39,21 +39,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   double currentSliderValue = 2;
-
-  // StreamController<double> streamController = StreamController();
   late TextEditingController _textController;
 
   @override
   void initState() {
     _textController = TextEditingController();
     _textController.text = "192.168.0.103:5000";
-    // streamController.stream.listen((double data) {
-    //   widget.messageSender.sendDigitToServer(data);
-    // }, onDone: () {
-    //   print("Task Done");
-    // }, onError: (error) {
-    //   print("Some Error");
-    // });
     super.initState();
   }
 
@@ -65,34 +56,6 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            // SliderWithWrap(
-            //   messageSender: widget.messageSender,
-            //   tag: "FIRST",
-            //   initialValue: 90,
-            // ),
-            // SliderWithWrap(
-            //   messageSender: widget.messageSender,
-            //   tag: "SECOND",
-            //   initialValue: 10,
-            // ),
-            // const Text(
-            //   'Slider:',
-            // ),
-            // Slider(
-            //   value: currentSliderValue,
-            //   max: 100,
-            //   divisions: 10000,
-            //   label: getHundredths(currentSliderValue).toString(),
-            //   onChanged: (double value) {
-            //     streamController.add(getHundredths(value));
-            //     setState(() {
-            //       currentSliderValue = value;
-            //     });
-            //   },
-            // ),
-            // Container(
-            //   height: 10,
-            // ),
             Container(
               alignment: Alignment.topCenter,
               width: 200,
@@ -117,7 +80,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void dispose() {
-    // streamController.close(); //Streams must be closed when not needed
     _textController.dispose();
     super.dispose();
   }
@@ -131,26 +93,6 @@ class _MyHomePageState extends State<MyHomePage> {
         context,
         CupertinoPageRoute(
             builder: (context) => ControllersPage(
-                  // controllersList: ControllersList([
-                  //   ControllerSlider(0.0, "FIRST"),
-                  //   ControllerSlider(20.0, "SECOND"),
-                  //   ControllerSlider(40.0, "THIRD"),
-                  //   ControllerToggle(1, "FOURTH"),
-                  //   ControllerToggle(0, "FIFTH"),
-                  //   ControllerSlider(40.0, "SIXTH"),
-                  //   ControllerSlider(40.0, "THIRD"),
-                  //   ControllerToggle(1, "FOURTH"),
-                  //   ControllerToggle(0, "FIFTH"),
-                  //   ControllerSlider(40.0, "SIXTH"),
-                  //   ControllerSlider(40.0, "THIRD"),
-                  //   ControllerToggle(1, "FOURTH"),
-                  //   ControllerToggle(0, "FIFTH"),
-                  //   ControllerSlider(40.0, "SIXTH"),
-                  //   ControllerSlider(40.0, "THIRD"),
-                  //   ControllerToggle(1, "FOURTH"),
-                  //   ControllerToggle(0, "FIFTH"),
-                  //   ControllerSlider(40.0, "SIXTH"),
-                  // ]),
                   messageSender: messageSender,
                 )));
   }

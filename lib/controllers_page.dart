@@ -7,12 +7,10 @@ import 'controllers_generator.dart';
 import 'client/message_sender.dart';
 
 class ControllersPage extends StatefulWidget {
-  // final ControllersList controllersList;
   final MessageSender messageSender;
 
   const ControllersPage({
     super.key,
-    // required this.controllersList,
     required this.messageSender,
   });
 
